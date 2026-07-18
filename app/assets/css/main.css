@@ -1,0 +1,78 @@
+@import "tailwindcss";
+@import "@nuxt/ui";
+@font-face {
+  font-family: 'YekanBakh';
+  src: url('/fonts/staticfonts/YekanBakh-Medium.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'IRANYekan';
+  src: url('/fonts/staticfonts/IRANYekanX-regular.woff') format('woff');
+}
+@font-face {
+  font-family: 'IRANYekan';
+  src: url('/fonts/staticfonts/IRANYekanX-bold.woff') format('woff');
+  font-weight: 700;
+}
+
+@theme {
+  --default-font-family: 'IRANYekan';
+  --color-primary-50: #fdf2f6;
+  --color-primary-100: #fbe5ee;
+  --color-primary-200: #f8cce0;
+  --color-primary-300: #f2a6c8;
+  --color-primary-400: #ea70a3;
+  --color-primary-500: #e20054;
+  --color-primary-600: #cf0045;
+  --color-primary-700: #b00036;
+  --color-primary-800: #920330;
+  --color-primary-900: #7a062c;
+  --color-primary-950: #450014;
+}
+
+.font-bakh {
+  font-family: 'YekanBakh';
+}
+.mono,
+.monospace {
+  font-family: 'IRANYekan';
+  -moz-font-feature-settings: 'ss03';
+  -webkit-font-feature-settings: 'ss03';
+  font-feature-settings: 'ss03';
+}
+
+.faNum {
+  -moz-font-feature-settings: 'ss02';
+  -webkit-font-feature-settings: 'ss02';
+  font-feature-settings: 'ss02';
+}
+/* Enforcing strict layout constraints based on viewports */
+.layout-container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+/* Mobile viewport constraint */
+@media (max-width: 639px) {
+  .layout-container {
+    max-width: 328px;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+}
+
+/* Tablet viewport constraint */
+@media (min-width: 640px) and (max-width: 1023px) {
+  .layout-container {
+    max-width: 868px;
+  }
+}
+
+/* Desktop boxed layout constraint */
+@media (min-width: 1024px) {
+  .layout-container {
+    max-width: 1112px;
+  }
+}
