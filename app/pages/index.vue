@@ -1,0 +1,18 @@
+<template>
+  <div class="space-y-6 py-12 text-center">
+    <h2 class="text-3xl font-extrabold text-gray-900 tracking-tight sm:text-4xl">
+      درب‌های اتوماتیک هوشمند پیندُر
+    </h2>
+    <p class="max-w-xl mx-auto text-lg text-gray-500">
+      پروژه پیاده‌سازی پورتال کاتالوگ محصولات با استفاده از Nuxt UI و داده‌های شبیه‌سازی شده.
+    </p>
+    <div class="flex justify-center gap-4">
+      <UButton
+        to="/products"
+        label="مشاهده کاتالوگ محصولات"
+        size="lg"
+        trailing-icon="i-heroicons-arrow-left"
+      />
+    </div>
+  </div>
+</template>
