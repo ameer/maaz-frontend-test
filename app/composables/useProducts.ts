@@ -15,7 +15,7 @@ export const useProducts = () => {
     return await useFetch<FakeStoreProduct[]>('/products', {
       baseURL,
       // Intercept the response and run it through our adapter
-      transform: (products) => products.map(product => transformProduct(product, mode))
+      transform: products => products.map(product => transformProduct(product, mode)),
     })
   }
 
@@ -28,12 +28,12 @@ export const useProducts = () => {
     return await useFetch<FakeStoreProduct>(`/products/${id}`, {
       baseURL,
       // Intercept the response and run it through our adapter
-      transform: (product) => transformProduct(product, mode)
+      transform: product => transformProduct(product, mode),
     })
   }
 
   return {
     fetchAllProducts,
-    fetchProductById
+    fetchProductById,
   }
 }
