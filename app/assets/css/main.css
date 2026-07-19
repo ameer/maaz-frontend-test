@@ -13,12 +13,14 @@
   src: url('/fonts/staticfonts/IRANYekanX-bold.woff') format('woff');
   font-weight: 700;
 }
-
+:root {
+    --ui-primary: #e20054;
+}
 @theme {
   --default-font-family: 'IRANYekan';
   --color-primary-50: #fdf2f6;
   --color-primary-100: #fbe5ee;
-  --color-primary-200: #f8cce0;
+  --color-primary-200: #f180a9;
   --color-primary-300: #f2a6c8;
   --color-primary-400: #ea70a3;
   --color-primary-500: #e20054;
@@ -45,16 +47,13 @@
   -webkit-font-feature-settings: 'ss02';
   font-feature-settings: 'ss02';
 }
-/* Enforcing strict layout constraints based on viewports */
+
 .layout-container {
   width: 100%;
   margin-left: auto;
   margin-right: auto;
-  padding-left: 1rem;
-  padding-right: 1rem;
 }
 
-/* Mobile viewport constraint */
 @media (max-width: 639px) {
   .layout-container {
     max-width: 328px;
@@ -62,17 +61,17 @@
     padding-right: 0.5rem;
   }
 }
-
-/* Tablet viewport constraint */
 @media (min-width: 640px) and (max-width: 1023px) {
   .layout-container {
     max-width: 868px;
   }
 }
-
-/* Desktop boxed layout constraint */
 @media (min-width: 1024px) {
   .layout-container {
     max-width: 1112px;
   }
+}
+
+.zw-border {
+  box-shadow: 0 0 0 1px inset #E9EDF5;
 }

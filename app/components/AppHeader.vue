@@ -3,9 +3,9 @@ const route = useRoute()
 
 const links: HeaderMenuLink[] = [
   { label: 'لیست محصولات', to: '/products', icon: 'i-custom-products' },
-  { label: 'دریافت مشاوره', to: '/consultation', icon: 'i-custom-consultation' },
-  { label: 'سوالات متداول', to: '/faq', icon: 'i-custom-faq' },
-  { label: 'تماس با ما', to: '/contact', icon: 'i-custom-contact' },
+  { label: 'دریافت مشاوره', to: '#', icon: 'i-custom-consultation' },
+  { label: 'سوالات متداول', to: '#', icon: 'i-custom-faq' },
+  { label: 'تماس با ما', to: '#', icon: 'i-custom-contact' },
 ]
 </script>
 
@@ -14,7 +14,7 @@ const links: HeaderMenuLink[] = [
     class="w-full bg-white rounded-b-4xl transition-all duration-200 header-shadow"
   >
     <div
-      class="layout-container flex gap-6 font-bakh justify-between items-center md:py-10 md:px-4 md:grid md:grid-cols-12 md:items-center"
+      class="layout-container flex gap-6 font-bakh justify-between items-center md:py-10 md:grid md:grid-cols-12 md:items-center"
     >
       <div class="md:col-span-3 flex justify-start">
         <UButton
@@ -40,11 +40,11 @@ const links: HeaderMenuLink[] = [
           <span class="whitespace-nowrap">{{ link.label }}</span>
           <span
             v-if="route.path === link.to"
-            class="absolute -bottom-1.25 left-1/2 -translate-x-1/2 w-1 h-1 bg-primary-500 rounded-circle"
+            class="absolute -bottom-1.25 left-1/2 -translate-x-1/2 w-1 h-1 bg-primary-500 rounded-4xl"
           />
         </NuxtLink>
       </nav>
-      <div class="md:col-span-3 flex justify-end md:justify-center">
+      <div class="md:col-span-3 flex justify-end">
         <NuxtLink
           to="tel:02188888888"
           class="inline-block"
