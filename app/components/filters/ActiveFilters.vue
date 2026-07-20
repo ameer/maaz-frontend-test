@@ -1,8 +1,9 @@
 <template>
-  <div
+  <section
     v-if="hasActiveFilters"
     class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100 flex flex-col sm:flex-row items-center gap-4 mb-6"
     dir="rtl"
+    aria-label="فیلترهای اعمال شده"
   >
     <div class="text-slate-800 font-medium text-sm leading-4 whitespace-nowrap shrink-0">
       فیلترهای اعمال شده
@@ -38,7 +39,7 @@
         @remove="removeFilter('category', catValue)"
       />
     </div>
-  </div>
+  </section>
 </template>
 
 <script setup lang="ts">
