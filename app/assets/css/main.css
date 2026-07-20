@@ -61,12 +61,12 @@
     padding-right: 0.5rem;
   }
 }
-@media (min-width: 640px) and (max-width: 1023px) {
+@media (min-width: 640px) and (max-width: 1028px) {
   .layout-container {
     max-width: 868px;
   }
 }
-@media (min-width: 1024px) {
+@media (min-width: 1029px) {
   .layout-container {
     max-width: 1112px;
   }
