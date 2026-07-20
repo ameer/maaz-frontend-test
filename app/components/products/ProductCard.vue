@@ -29,9 +29,7 @@
           {{ product.title }}
         </h3>
 
-        <!-- Action Link -->
-        <NuxtLink
-          :to="`/products/${product.id}`"
+        <div
           class="text-rose-500 flex items-center justify-center gap-1 hover:text-rose-600 transition-all zw-border border-[#E9EDF5] rounded-2xl py-3 leading-4 hover:-translate-y-1"
         >
           <span class="text-sm font-bold leading-4">مشاهده جزئیات</span>
@@ -39,7 +37,7 @@
             name="i-mdi-chevron-left"
             class="w-4 h-4"
           />
-        </NuxtLink>
+        </div>
       </div>
     </UCard>
   </NuxtLink>
