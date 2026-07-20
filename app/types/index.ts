@@ -20,6 +20,7 @@ declare global {
   }
   interface ProductInfoRow {
     t: string
+    suffix?: string
     f?: (v: never) => unknown
   }
   interface ProductInfoConfig {
