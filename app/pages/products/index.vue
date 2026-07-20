@@ -2,10 +2,25 @@
   <div
     class="min-h-screen pb-12"
   >
-    <UContainer class="px-0 md:px-4 lg:px-0 pt-8">
-      <div class="flex flex-col md:flex-row gap-8">
+    <UContainer class="px-0 md:px-4 lg:px-3 xl:px-0 pt-8">
+      <h1 class="sr-only">
+        لیست محصولات
+      </h1>
+
+      <p
+        class="sr-only"
+        aria-live="polite"
+        aria-atomic="true"
+      >
+        {{ productResultsAnnouncement }}
+      </p>
+
+      <div class="flex flex-col md:flex-row gap-2 sm:gap-4 md:gap-8">
         <!-- Sidebar (Right Side) -->
-        <aside class="md:min-w-66.5">
+        <aside
+          class="md:min-w-66.5"
+          aria-label="فیلتر و جستجوی محصولات"
+        >
           <ProductFilterSidebar
             :categories="dynamicCategories"
             :sort-options="sortOptions"
@@ -13,13 +28,19 @@
         </aside>
 
         <!-- Main Content (Left Side) -->
-        <div class="md:w-3/4">
+        <section
+          class="md:w-3/4"
+          aria-label="نتایج محصولات"
+        >
           <ActiveFilters :sort-options="sortOptions" />
 
           <!-- Loading State Grid -->
           <div
             v-if="pending"
             class="grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-8 relative"
+            role="status"
+            aria-busy="true"
+            aria-label="در حال بارگذاری محصولات"
           >
             <ProductCardSkeleton
               v-for="i in 12"
@@ -31,25 +52,33 @@
           <TransitionGroup
             v-else-if="filteredProducts && filteredProducts.length"
             name="product-list"
-            tag="div"
-            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-6 relative"
+            tag="ul"
+            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-6 relative list-none p-0 m-0"
+            role="list"
+            aria-label="لیست محصولات"
           >
-            <ProductCard
+            <li
               v-for="product in filteredProducts"
               :key="product.id"
-              :product="product"
-              :sort-selected="sortSelected"
-            />
+              class="list-none"
+            >
+              <ProductCard
+                :product="product"
+                :sort-selected="sortSelected"
+              />
+            </li>
           </TransitionGroup>
 
           <!-- Empty State -->
           <div
             v-else
             class="flex flex-col items-center justify-center py-24 text-slate-500 bg-white rounded-3xl border border-slate-200 shadow-sm"
+            role="status"
           >
             <UIcon
               name="i-mdi-package-variant"
               class="w-20 h-20 mb-6 opacity-30 text-rose-500"
+              aria-hidden="true"
             />
             <h3 class="text-xl font-bold text-slate-700 mb-2">
               محصولی یافت نشد
@@ -58,7 +87,7 @@
               لطفا فیلترهای خود را تغییر دهید یا جستجوی دیگری را امتحان کنید.
             </p>
           </div>
-        </div>
+        </section>
       </div>
     </UContainer>
   </div>
@@ -151,6 +180,16 @@ const filteredProducts = computed<FakeStoreProduct[] | PindoorProduct[]>(() => {
   }
 
   return result
+})
+
+const formatNumberFA = (num: number) =>
+  new Intl.NumberFormat('fa-IR').format(num)
+
+const productResultsAnnouncement = computed(() => {
+  if (pending.value) return 'در حال بارگذاری محصولات'
+  const count = filteredProducts.value?.length ?? 0
+  if (count === 0) return 'محصولی یافت نشد'
+  return `${formatNumberFA(count)} محصول یافت شد`
 })
 </script>
 
