@@ -1,5 +1,8 @@
 <template>
-  <NuxtLink :to="`/products/${product.id}`">
+  <NuxtLink
+    :to="`/products/${product.id}`"
+    :aria-label="`مشاهده جزئیات ${product.title}`"
+  >
     <UCard
       variant="solid"
       class="bg-white product-card-shadow"
@@ -16,6 +19,7 @@
           v-if="sortSelected"
           color="primary"
           class="absolute top-2 left-2 z-10 faNum"
+          :aria-label="chipText"
         >
           {{ chipText }}
         </UBadge>
@@ -36,6 +40,7 @@
           <UIcon
             name="i-mdi-chevron-left"
             class="w-4 h-4"
+            aria-hidden="true"
           />
         </div>
       </div>

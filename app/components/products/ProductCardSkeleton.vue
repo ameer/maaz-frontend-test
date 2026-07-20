@@ -1,5 +1,6 @@
 <template>
   <UCard
+    aria-hidden="true"
     :ui="{
       root: 'flex flex-col h-full',
       body: 'p-4',
