@@ -27,6 +27,15 @@ export interface PindoorProduct extends FakeStoreProduct {
   rating: { rate: number, count: number }
 }
 
+export function transformProduct(raw: FakeStoreProduct, mode?: 'pindoor'): PindoorProduct
+
+// 2. Overload for exactly 'raw'
+export function transformProduct(raw: FakeStoreProduct, mode: 'raw'): FakeStoreProduct
+
+// 3. NEW: Overload to accept the dynamic union type from our useProducts wrapper
+export function transformProduct(raw: FakeStoreProduct, mode: 'raw' | 'pindoor'): FakeStoreProduct | PindoorProduct
+
+// 4. The hidden implementation
 export function transformProduct(
   raw: FakeStoreProduct,
   mode: 'raw' | 'pindoor' = 'pindoor',
@@ -41,7 +50,7 @@ export function transformProduct(
     id: raw.id,
     title: translations[raw.title as keyof typeof translations] || raw.title,
     price: simulatedPrice,
-    description: translations[raw.description as keyof typeof translations],
+    description: translations[raw.description as keyof typeof translations] || raw.description,
     specs: [
       'مجهز به سنسور تشخیص مانع التراسونیک',
       'سیستم توقف اضطراری خودکار',
