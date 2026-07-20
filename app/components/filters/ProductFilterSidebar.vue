@@ -1,165 +1,137 @@
 <template>
-  <div class="flex flex-col gap-6 w-full">
-    <!-- Search Section -->
-    <FilterBox>
-      <div class="flex flex-col gap-4">
-        <h2 class="text-slate-500 font-bold text-sm text-right">
-          فیلتر و جستجو
-        </h2>
-
-        <UForm
-          class="space-y-4"
-          @submit.prevent="applySearch"
-        >
-          <div class="relative">
-            <UInput
-              ref="searchInput"
-              v-model="localSearchInput"
-              type="text"
-              placeholder="جستجو در محصولات..."
-              icon="i-mdi-magnify"
-              size="lg"
-              class="rounded-xl w-full"
-              :ui="{ base: 'focus-visible:outline-0' }"
-              @keyup.enter="applySearch"
-            >
-              <template #trailing>
-                <UButton
-                  v-if="localSearchInput"
-                  color="primary"
-                  variant="link"
-                  size="sm"
-                  aria-label="پاک کردن جستجو"
-                  class="text-slate-400 hover:text-rose-500"
-                  @click.prevent="clearLocalSearch"
-                >
-                  <UIcon
-                    name="i-mdi-close"
-                    class="w-5 h-5"
-                  />
-                </UButton>
-                <UKbd
-                  v-else
-                  value="/"
-                />
-              </template>
-            </UInput>
-          </div>
-
-          <UButton
-            type="submit"
-            color="primary"
-            block
+  <div class="w-full">
+    <div class="md:hidden w-full flex flex-col gap-4 mb-6">
+      <div class="bg-white rounded-3xl filter-box-card-shadow p-4 flex items-center justify-between gap-4 w-full border border-slate-100">
+        <div class="flex-1 relative">
+          <UInput
+            v-model="localSearchInput"
+            type="search"
+            placeholder="جستجو در محصولات..."
+            icon="i-mdi-magnify"
             size="lg"
-            class="cursor-pointer rounded-xl font-bold text-base bg-primary-500 hover:bg-primary-600"
+            class="rounded-xl w-full"
+            aria-label="جستجو در محصولات"
+            :ui="{ base: 'focus-visible:outline-0' }"
+            @keyup="debouncedSearch"
           >
-            جستجو
-          </UButton>
-        </UForm>
-      </div>
-    </FilterBox>
-
-    <!-- Availability -->
-    <FilterBox>
-      <div class="flex items-center justify-between">
-        <span class="text-sm font-medium text-[#445A74]">محصولات موجود</span>
-        <USwitch
-          v-model="isAvailable"
-        />
-      </div>
-    </FilterBox>
-
-    <!-- Sort -->
-    <FilterBox>
-      <UAccordion
-        :default-value="['sort']"
-        :items="[{ label: 'مرتب‌سازی', value: 'sort' }]"
-        class="text-[#445A74]"
-        :ui="{
-          trigger: 'cursor-pointer pt-0 data-[state=open]:pb-5 data-[state=closed]:pb-0',
-        }"
-      >
-        <template #body>
-          <URadioGroup
-            v-model="sortSelected"
-            :items="sortOptions"
-            indicator="hidden"
-            class="space-y-4 mt-2"
-            :ui="{
-              label: 'cursor-pointer w-full text-right',
-              fieldset: 'gap-y-5',
-            }"
-            dir="rtl"
-          >
-            <template #label="{ item }">
-              <div
-                class="flex items-center gap-2"
-                :class="sortSelected === item.value ? 'text-[#344456]' : 'text-[#647E9A]'"
+            <template #trailing>
+              <UButton
+                v-if="localSearchInput"
+                color="primary"
+                variant="link"
+                size="sm"
+                aria-label="پاک کردن جستجو"
+                class="text-slate-400 hover:text-rose-500"
+                @click.prevent="clearLocalSearch"
               >
                 <UIcon
-                  v-if="sortSelected === item.value"
-                  name="i-custom:radio-filled"
-                  class="text-primary-500"
-                  size="16px"
+                  name="i-mdi-close"
+                  class="w-5 h-5"
+                  aria-hidden="true"
                 />
-                <UIcon
-                  v-else
-                  name="i-mdi:circle-outline"
-                  size="16px"
-                />
-                <span class="text-xs font-medium">{{ item.label }}</span>
-              </div>
+              </UButton>
             </template>
-          </URadioGroup>
-        </template>
-      </UAccordion>
-    </FilterBox>
+          </UInput>
+        </div>
 
-    <!-- Categories -->
-    <FilterBox>
-      <UAccordion
-        :default-value="['category']"
-        :items="[{ label: 'دسته‌بندی', value: 'category' }]"
-        class="text-[#445A74]"
-        :ui="{
-          trigger: 'cursor-pointer pt-0 data-[state=open]:pb-5 data-[state=closed]:pb-0',
-        }"
-      >
-        <template #body>
-          <div class="flex flex-col gap-4 mt-2">
-            <UCheckboxGroup
-              v-model="categoriesSelected"
-              :items="categories"
-              dir="rtl"
-              :ui="{ fieldset: 'gap-y-4' }"
-            >
-              <template #label="{ item }">
-                <label class="flex items-center justify-between cursor-pointer group w-full">
-                  <span class="text-sm font-medium text-slate-600 group-hover:text-slate-900 transition-colors">
-                    {{ item.label }}
-                  </span>
-                  <div
-                    class="px-2 py-1 rounded-md text-xs font-medium text-white transition-colors flex items-center justify-center min-w-7 h-7"
-                    :class="categoriesSelected.includes(item.value) ? 'bg-rose-600' : 'bg-[#1e293b]'"
-                  >
-                    {{ formatNumberFA(item.count) }}
-                  </div>
-                </label>
-              </template>
-            </UCheckboxGroup>
+        <div class="relative shrink-0">
+          <UButton
+            variant="outline"
+            icon="i-mdi-filter-variant"
+            size="lg"
+            class="rounded-xl"
+            :aria-label="filterButtonLabel"
+            @click="openFilterSlideover"
+          >
+            فیلترها
+          </UButton>
+          <div
+            v-if="activeFilterCount > 0"
+            class="absolute -top-2 -right-2 bg-rose-500 text-white w-6 h-6 flex items-center justify-center rounded-full text-[11px] font-bold shadow-md z-10"
+            aria-hidden="true"
+          >
+            {{ formatNumberFA(activeFilterCount) }}
           </div>
-        </template>
-      </UAccordion>
-    </FilterBox>
+        </div>
+      </div>
+    </div>
+
+    <div class="hidden md:flex flex-col gap-6 w-full">
+      <FilterBox>
+        <div class="flex flex-col gap-4">
+          <h2 class="text-slate-500 font-bold text-sm text-right">
+            فیلتر و جستجو
+          </h2>
+
+          <UForm
+            class="space-y-4"
+            @submit.prevent="applySearch"
+          >
+            <div class="relative">
+              <UInput
+                ref="searchInput"
+                v-model="localSearchInput"
+                type="search"
+                placeholder="جستجو در محصولات..."
+                icon="i-mdi-magnify"
+                size="lg"
+                class="rounded-xl w-full"
+                aria-label="جستجو در محصولات"
+                :ui="{ base: 'focus-visible:outline-0' }"
+                @keyup.enter="applySearch"
+              >
+                <template #trailing>
+                  <UButton
+                    v-if="localSearchInput"
+                    color="primary"
+                    variant="link"
+                    size="sm"
+                    aria-label="پاک کردن جستجو"
+                    class="text-slate-400 hover:text-rose-500"
+                    @click.prevent="clearLocalSearch"
+                  >
+                    <UIcon
+                      name="i-mdi-close"
+                      class="w-5 h-5"
+                    />
+                  </UButton>
+                  <UKbd
+                    v-else
+                    value="/"
+                  />
+                </template>
+              </UInput>
+            </div>
+
+            <UButton
+              type="submit"
+              color="primary"
+              block
+              size="lg"
+              class="cursor-pointer rounded-xl font-bold text-base bg-primary-500 hover:bg-primary-600"
+            >
+              جستجو
+            </UButton>
+          </UForm>
+        </div>
+      </FilterBox>
+
+      <ProductFilterPanels
+        :categories="categories"
+        :sort-options="sortOptions"
+      />
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, watch, nextTick } from 'vue'
+import { ref, watch, nextTick, computed, onMounted } from 'vue'
+import { LazyFiltersProductFilterSlideover } from '#components'
 import { useProductFilters } from '~/composables/useProductFilters'
 import FilterBox from './FilterBox.vue'
+import ProductFilterPanels from './ProductFilterPanels.vue'
 
-defineProps<{
+const props = defineProps<{
   categories: { label: string, value: string, count: number }[]
   sortOptions: { label: string, value: string }[]
 }>()
@@ -169,19 +141,35 @@ const { searchQuery, isAvailable, sortSelected, categoriesSelected } = useProduc
 const localSearchInput = ref(searchQuery.value)
 const searchInput = ref<{ inputRef?: { focus: () => void } }>()
 
-// Focus helper
+const overlay = useOverlay()
+const filterSlideover = overlay.create(LazyFiltersProductFilterSlideover)
+
+function openFilterSlideover() {
+  filterSlideover.open({
+    categories: props.categories,
+    sortOptions: props.sortOptions,
+  })
+}
+
 const focusSearchInput = () => {
   setTimeout(() => {
     searchInput.value?.inputRef?.focus?.()
   }, 100)
 }
 
-// Restore focus after search
 const applySearch = async () => {
   const trimmed = localSearchInput.value.trim()
   searchQuery.value = trimmed
   await nextTick()
   focusSearchInput()
+}
+
+let debounceTimeout: ReturnType<typeof setTimeout> | null = null
+const debouncedSearch = () => {
+  if (debounceTimeout) clearTimeout(debounceTimeout)
+  debounceTimeout = setTimeout(() => {
+    applySearch()
+  }, 500)
 }
 
 const clearLocalSearch = () => {
@@ -190,19 +178,29 @@ const clearLocalSearch = () => {
   focusSearchInput()
 }
 
-// Sync from URL → local input
 watch(searchQuery, (newVal) => {
   localSearchInput.value = newVal
 })
 
-// Initial focus (if there's already a search term)
+const activeFilterCount = computed(() => {
+  let count = 0
+  if (isAvailable.value) count++
+  if (sortSelected.value && sortSelected.value !== 'sort') count++
+  count += categoriesSelected.value.length
+  return count
+})
+
+const filterButtonLabel = computed(() => {
+  if (activeFilterCount.value === 0) return 'فیلترها'
+  return `فیلترها، ${formatNumberFA(activeFilterCount.value)} فیلتر فعال`
+})
+
 onMounted(() => {
   if (localSearchInput.value) {
     focusSearchInput()
   }
 })
 
-// Keyboard shortcut
 defineShortcuts({
   '/': () => focusSearchInput(),
 })
