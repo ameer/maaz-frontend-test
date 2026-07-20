@@ -15,15 +15,15 @@ export default defineNuxtConfig({
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        { 
-          name: 'description', 
-          content: 'بهترین محصولات را با قیمت مناسب و ارسال سریع از فروشگاه ما خریداری کنید.' 
+        {
+          name: 'description',
+          content: 'بهترین محصولات را با قیمت مناسب و ارسال سریع از فروشگاه ما خریداری کنید.',
         },
-        { name: 'theme-color', content: '#e20054' }
+        { name: 'theme-color', content: '#e20054' },
       ],
       link: [
-        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
-      ]
+        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      ],
     },
   },
   css: ['~/assets/css/main.css'],
@@ -55,5 +55,8 @@ export default defineNuxtConfig({
         dir: './app/assets/icons',
       },
     ],
+  },
+  image: {
+    domains: ['fakestoreapi.com'],
   },
 })
