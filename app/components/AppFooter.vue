@@ -117,12 +117,14 @@ const socialIcons = [
                   :key="`sl-${i}`"
                   :href="social.link"
                   target="_blank"
-                  rel="nofollow"
+                  rel="nofollow noopener noreferrer"
+                  :aria-label="`${social.label} (باز شدن در پنجره جدید)`"
                   class="flex items-center gap-4 text-[#6783A0] hover:text-slate-700 transition-colors"
                 >
                   <UIcon
                     :name="social.icon || 'i-custom-telegram'"
                     class="w-6 h-6"
+                    aria-hidden="true"
                   />
                   <span class="font-medium text-sm text-[#253343]">{{ social.label }}</span>
 
@@ -154,13 +156,14 @@ const socialIcons = [
                 :key="`social-link-${i}`"
                 :href="social.link"
                 target="_blank"
-                rel="nofollow"
-                aria-label="Social link"
+                rel="nofollow noopener noreferrer"
+                :aria-label="`${social.label} (باز شدن در پنجره جدید)`"
                 class="flex items-center justify-center"
               >
                 <UIcon
                   :name="social.icon"
                   class="w-6 h-6 text-[#f472b6] hover:text-primary-500 transition-colors"
+                  aria-hidden="true"
                 />
               </a>
             </div>
