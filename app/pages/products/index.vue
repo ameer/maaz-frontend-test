@@ -2,7 +2,7 @@
   <div
     class="min-h-screen pb-12"
   >
-    <UContainer class="px-0 sm:px-0 lg:px-0 pt-8">
+    <UContainer class="px-0 md:px-4 lg:px-0 pt-8">
       <div class="flex flex-col md:flex-row gap-8">
         <!-- Sidebar (Right Side) -->
         <aside class="md:min-w-66.5">
@@ -32,7 +32,7 @@
             v-else-if="filteredProducts && filteredProducts.length"
             name="product-list"
             tag="div"
-            class="grid grid-cols-1 md:grid-cols-3 gap-x-4 gap-y-6 relative"
+            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-6 relative"
           >
             <ProductCard
               v-for="product in filteredProducts"
