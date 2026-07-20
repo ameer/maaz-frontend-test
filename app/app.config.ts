@@ -1,6 +1,5 @@
 export default defineAppConfig({
   ui: {
-    dir: 'rtl',
     card: {
       slots: {
         root: 'border-0 rounded-2xl overflow-hidden',
