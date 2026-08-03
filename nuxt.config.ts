@@ -40,6 +40,9 @@ export default defineNuxtConfig({
     compatibilityVersion: 4,
   },
   compatibilityDate: '2026-07-16',
+  nitro: {
+    preset: 'netlify',
+  },
   vite: {
     optimizeDeps: {
       include: [
