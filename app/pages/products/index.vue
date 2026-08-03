@@ -105,8 +105,15 @@ import type { FakeStoreProduct, PindoorProduct } from '~/utils/productAdapter'
 
 // 1. Fetch initial data once
 const { fetchAllProducts } = useProducts()
-const { data: products, pending } = await fetchAllProducts('pindoor')
+const { data: products, pending, refresh, error } = await fetchAllProducts('pindoor')
+// Client-side fallback: If SSR returned null/error due to Netlify IP restrictions, fetch in browser
+onMounted(() => {
+  if (!products.value || products.value.length === 0 || error.value) {
+    console.log(error.value)
 
+    refresh()
+  }
+})
 // 2. Hydrate query/filter state dynamically
 const { searchQuery, isAvailable, sortSelected, categoriesSelected } = useProductFilters()
 

@@ -13,6 +13,10 @@ export const useProducts = () => {
     return useFetch('/products', {
       baseURL,
       key: `products-all-${mode}`,
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        'Accept': 'application/json',
+      },
       transform: (products: FakeStoreProduct[]) => {
         const transformed = products.map(product => transformProduct(product, mode))
         return transformed as T extends 'raw' ? FakeStoreProduct[] : PindoorProduct[]
@@ -29,7 +33,10 @@ export const useProducts = () => {
     return useFetch(`/products/${id}`, {
       baseURL,
       key: `product-${id}-${mode}`,
-
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        'Accept': 'application/json',
+      },
       transform: (product: FakeStoreProduct) => {
         return transformProduct(product, mode) as T extends 'raw' ? FakeStoreProduct : PindoorProduct
       },

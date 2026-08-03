@@ -19,6 +19,7 @@
         class="w-full h-full object-contain transition-transform duration-500 group-hover:scale-102"
         loading="lazy"
         fit="contain"
+        height="300"
       />
 
       <div class="absolute top-4 right-4 z-10">
