@@ -34,7 +34,7 @@ const productId = route.params.id as string
 
 const { fetchProductById } = useProducts()
 
-const { data: product, pending, error } = await fetchProductById(productId, 'pindoor')
+const { data: product, pending, error, refresh } = await fetchProductById(productId, 'pindoor')
 if (product.value) {
   useSeoMeta({
     title: product.value.title,
@@ -46,7 +46,11 @@ if (product.value) {
     twitterCard: 'summary_large_image',
   })
 }
-
+onMounted(() => {
+  if (!product.value || error.value) {
+    refresh()
+  }
+})
 watch([pending, product, error], () => {
   if (import.meta.client && !pending.value && (error.value || !product.value)) {
     throw createError({

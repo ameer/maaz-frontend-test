@@ -109,8 +109,6 @@ const { data: products, pending, refresh, error } = await fetchAllProducts('pind
 // Client-side fallback: If SSR returned null/error due to Netlify IP restrictions, fetch in browser
 onMounted(() => {
   if (!products.value || products.value.length === 0 || error.value) {
-    console.log(error.value)
-
     refresh()
   }
 })
