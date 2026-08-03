@@ -41,7 +41,7 @@ export default defineNuxtConfig({
   },
   compatibilityDate: '2026-07-16',
   nitro: {
-    preset: 'netlify',
+    preset: 'cloudflare-pages',
   },
   vite: {
     optimizeDeps: {
