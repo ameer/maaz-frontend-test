@@ -46,11 +46,14 @@ if (product.value) {
     twitterCard: 'summary_large_image',
   })
 }
-if (!pending.value && (error.value || !product.value)) {
-  throw createError({
-    statusCode: 404,
-    statusMessage: 'محصول یافت نشد',
-    fatal: true,
-  })
-}
+
+watch([pending, product, error], () => {
+  if (import.meta.client && !pending.value && (error.value || !product.value)) {
+    throw createError({
+      statusCode: 404,
+      statusMessage: 'محصول یافت نشد',
+      fatal: true,
+    })
+  }
+}, { immediate: true })
 </script>
