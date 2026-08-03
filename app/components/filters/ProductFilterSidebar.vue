@@ -78,6 +78,7 @@
                 class="rounded-xl w-full"
                 aria-label="جستجو در محصولات"
                 :ui="{ base: 'focus-visible:outline-0' }"
+                @keyup="debouncedSearch"
                 @keyup.enter="applySearch"
               >
                 <template #trailing>
