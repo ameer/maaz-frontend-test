@@ -3,14 +3,17 @@
 @font-face {
   font-family: 'YekanBakh';
   src: url('/fonts/staticfonts/YekanBakh-Medium.woff2') format('woff2');
+  font-display: swap;
 }
 @font-face {
   font-family: 'IRANYekan';
   src: url('/fonts/staticfonts/IRANYekanX-regular.woff') format('woff');
+  font-display: swap;
 }
 @font-face {
   font-family: 'IRANYekan';
   src: url('/fonts/staticfonts/IRANYekanX-bold.woff') format('woff');
+  font-display: swap;
   font-weight: 700;
 }
 :root {

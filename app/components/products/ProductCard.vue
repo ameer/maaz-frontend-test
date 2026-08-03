@@ -13,7 +13,6 @@
           :alt="product.title"
           placeholder
           class="w-full h-full object-contain mix-blend-multiply"
-          loading="lazy"
         />
         <UBadge
           v-if="sortSelected"
